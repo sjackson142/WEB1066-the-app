@@ -27,5 +27,4 @@ deploy:
   provider: script
   script: bash -c "echo \"${DOCKER_PASSWORD}\" | docker login --username \"${DOCKER_LOGIN}\" --password-stdin"
   on:
-    tags: true
     all_branches: true
