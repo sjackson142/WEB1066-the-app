@@ -7,12 +7,7 @@ services:
 env:
   matrix:
     - COVERAGE=0.5 TARGET=./monolithic/ui
-    - COVERAGE=0.5 TARGET=./monolithic/service/cart
-    - COVERAGE=0.5 TARGET=./monolithic/service/user
-    - COVERAGE=0.3 TARGET=./monolithic/repository/order
-    - COVERAGE=0.5 TARGET=./monolithic/repository/cart
-    - COVERAGE=0.5 TARGET=./monolithic/repository/product
-    - COVERAGE=0.3 TARGET=./monolithic/repository/user
+
   global:
     secure: Anvv/lMn1C8XO2/cYTPlUWcmdwCwUkrJJGWR6GwdjTIPZs7BmTlrjmKCG0XHAkfQ4YxAaNa3DBa/4Aifvea4V7uXeDKwxNOp2IGYWme2SAhFiZlUwbHZjWMH4koIS/rt8NYKywT1WOLN/llPOYzALU1OTswVeWPx7yosok/8TC0cct5+t/F6zgoIdC9nKMU2H+AiIjsgotOrSiBKe+yf6J3Z2CweHRDaBxHbQk4I/CXDt0By6PWxqEy1OQhXmokwJlZqqjQlaVFGbfxr/SgwMktb8nqqomRKHKcoeLthCqp1nU2nExC6STAom3WI2KNeLMggLpn9o7fAe0vV862BmIqz3WN58wjkyQLyfxAPQE5d7TF8ngYKzEOqSTIu5XFIWkBoFBlETudgDgwzdCnuBZwTBwMz+U3ooRf1Toq1kV5AdZ7j1HwIGzMJLqcXsKKPpx2EFSJQ+UC/JU8uRiB9PdDuz9UQOqpRW6Or5J5rO+UVx0L3tezbTibZ+pcrDzVj0xBG/fL3aUqkMMRw8iYRZrT1HN/LJuOB5rm8a8qxUwz/DQZYn7rpI6bkfwI5viTuxAK60S518ovJkUPlOGIo0cQTdCLzoK7bSQDVz9NUeY+QefgZid/2CtWtTeiLCx7RW4qgfVX91/oYcNJvMt30SX77kb/9NdDzs0NhWzNvLSk=
 script:
