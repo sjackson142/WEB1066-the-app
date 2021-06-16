@@ -23,7 +23,7 @@ after_success:
 
 deploy:
   provider: script
-  script: ./script/deploy.sh
+  script: bash script/deploy.sh
   on:
     condition: $TARGET == './monolithic/ui'
     branch: q11
