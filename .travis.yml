@@ -4,13 +4,16 @@ jdk:
   - openjdk9
 
 env:
-  - COVERAGE=0.5 TARGET=./monolithic/ui
-  - COVERAGE=0.5 TARGET=./monolithic/service/cart
-  - COVERAGE=0.5 TARGET=./monolithic/service/user
-  - COVERAGE=0.3 TARGET=./monolithic/repository/order
-  - COVERAGE=0.5 TARGET=./monolithic/repository/cart
-  - COVERAGE=0.5 TARGET=./monolithic/repository/product
-  - COVERAGE=0.3 TARGET=./monolithic/repository/user
+  matrix
+    - COVERAGE=0.5 TARGET=./monolithic/ui
+    - COVERAGE=0.5 TARGET=./monolithic/service/cart
+    - COVERAGE=0.5 TARGET=./monolithic/service/user
+    - COVERAGE=0.3 TARGET=./monolithic/repository/order
+    - COVERAGE=0.5 TARGET=./monolithic/repository/cart
+    - COVERAGE=0.5 TARGET=./monolithic/repository/product
+    - COVERAGE=0.3 TARGET=./monolithic/repository/user
+  global:
+    secure: unvVlgEEHOGuPOhsxMujODnzxRns4jhEmSqiOUmcebKsEKBS3b/e2zL5S1DWKF9QY59EMVTrFW3/PrWRdgVmoYK/AiJVYXXQwu05zvwTajJ758TefO69+PoZ0hytce1y4iZhpVgRy2MtKpuAWLshEcu7gOL8KwbMHJdFCX4z4sw3NMI5NLTKcMCZT3/y3s3Pod/iQJgBuizO99ZvcYc5RPKH33bv0jdBKkuh4WPRzs/bFhLa1n7a2Pip7XXve5Ai/E4xWaQnapYnpsgZoKSHPAm1Fh9DJXNzwf6JEWtj23a4PlOnCTaOdYlVic/zqupAcDe7Ssy9y4YMptpVInIuOnCsBKJDqRGIs1OAAbgyuXDtJtg2tlR6ZOMCE9En+n0FKhyUqUHBP8oBT0y+caJzyQQGLOFctyFTqxg7ZTxJendtdQIgTcGly29IerqMu/riOV1gu7V5o7umrxn/Go5e5UTY+GPZ8tza7WF2dUvb2dn5FDNvQtOLNDvrZhImtavUBZDVxMYc2kSYd5kk6ZL5TPxEU8GH+mwyG/qGY8SgfWIAzAEJTcuBNP3TS96t6xcXmWb6miCLX50tjtMO1+y4W3lMN8rXuo+UBns+M8zjwPTQt3Y59KSWkovD2FOECBGw+uAuTP1R/eida0+Y63Y+p4E1XJFawUkQNC5jCX6BQ2E=
 
 script:
   - ./gradlew clean jar
@@ -20,7 +23,7 @@ after_success:
 
 deploy:
   provider: script
-  script: echo 'WIP'
+  script: bash -c "echo \"${DOCKER_PASSWORD}\" | docker login --username \"${DOCKER_LOGIN}\" --password-stdin"
   on:
     tags: true
     all_branches: true
