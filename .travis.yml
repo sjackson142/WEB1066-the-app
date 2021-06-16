@@ -1,10 +1,32 @@
-language: python
-install: "pip install -r requirements.txt"
+language: java
+jdk:
+  - openjdk8
+services:
+  - docker
 
+env:
+  matrix:
+    - COVERAGE=0.5 TARGET=./monolithic/ui
+    - COVERAGE=0.5 TARGET=./monolithic/service/cart
+    - COVERAGE=0.5 TARGET=./monolithic/service/user
+    - COVERAGE=0.3 TARGET=./monolithic/repository/order
+    - COVERAGE=0.5 TARGET=./monolithic/repository/cart
+    - COVERAGE=0.5 TARGET=./monolithic/repository/product
+    - COVERAGE=0.3 TARGET=./monolithic/repository/user
+  global:
+    secure: Anvv/lMn1C8XO2/cYTPlUWcmdwCwUkrJJGWR6GwdjTIPZs7BmTlrjmKCG0XHAkfQ4YxAaNa3DBa/4Aifvea4V7uXeDKwxNOp2IGYWme2SAhFiZlUwbHZjWMH4koIS/rt8NYKywT1WOLN/llPOYzALU1OTswVeWPx7yosok/8TC0cct5+t/F6zgoIdC9nKMU2H+AiIjsgotOrSiBKe+yf6J3Z2CweHRDaBxHbQk4I/CXDt0By6PWxqEy1OQhXmokwJlZqqjQlaVFGbfxr/SgwMktb8nqqomRKHKcoeLthCqp1nU2nExC6STAom3WI2KNeLMggLpn9o7fAe0vV862BmIqz3WN58wjkyQLyfxAPQE5d7TF8ngYKzEOqSTIu5XFIWkBoFBlETudgDgwzdCnuBZwTBwMz+U3ooRf1Toq1kV5AdZ7j1HwIGzMJLqcXsKKPpx2EFSJQ+UC/JU8uRiB9PdDuz9UQOqpRW6Or5J5rO+UVx0L3tezbTibZ+pcrDzVj0xBG/fL3aUqkMMRw8iYRZrT1HN/LJuOB5rm8a8qxUwz/DQZYn7rpI6bkfwI5viTuxAK60S518ovJkUPlOGIo0cQTdCLzoK7bSQDVz9NUeY+QefgZid/2CtWtTeiLCx7RW4qgfVX91/oYcNJvMt30SX77kb/9NdDzs0NhWzNvLSk=
 script:
-  # Run ANSIBLE checks
-  # - ANSIBLE0008: Disabled for use of sudo warnings - to address
-  # - ANSIBLE0011: Disabled for all tasks which should be named
-  # - ANSIBLE0012: Disabled (should not change if nothings needs doing) - to address
-  # - ANSIBLE0013: Disabled - few uses of shell commands - to address
-  - find vagrant/provision -name "*.yml" -exec ansible-lint -x ANSIBLE008,ANSIBLE0011,ANSIBLE0012,ANSIBLE0013  {} +
+  - ./gradlew clean jar
+
+after_success:
+  - ./gradlew -p $TARGET check
+
+before_deploy:
+  - ./gradlew -p ./monolithic/ui packageToContainer
+
+deploy:
+  provider: script
+  script: ./script/deploy.sh
+  on:
+    condition: "$TARGET == './monolithic/ui'"
+    branch: master
