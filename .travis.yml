@@ -28,5 +28,5 @@ deploy:
   provider: script
   script: ./script/deploy.sh
   on:
-    condition: "$TARGET == './monolithic/ui'"
+    condition: $TARGET == './monolithic/ui'
     branch: master
