@@ -6,7 +6,7 @@ services:
   - docker
 
 env:
-  matrix
+  matrix:
     - COVERAGE=0.5 TARGET=./monolithic/ui
     - COVERAGE=0.5 TARGET=./monolithic/service/cart
     - COVERAGE=0.5 TARGET=./monolithic/service/user
