@@ -23,4 +23,4 @@ deploy:
   script: bash script/deploy.sh
   on:
     condition: $TARGET == './monolithic/ui'
-    branch: q11
+    branch: master
