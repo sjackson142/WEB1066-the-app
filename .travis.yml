@@ -10,10 +10,10 @@ env:
   - COVERAGE=0.5 TARGET=./monolithic/repository/product
   - COVERAGE=0.3 TARGET=./monolithic/repository/user
 
-install:
+script:
   - ./gradlew clean jar
 
-script:
+after_success:
   - ./gradlew -p $TARGET check
 
 deploy:
