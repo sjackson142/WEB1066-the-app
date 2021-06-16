@@ -21,13 +21,9 @@ script:
 after_success:
   - ./gradlew -p $TARGET check
 
-before_deploy:
-  - bash -c "echo \"${DOCKER_PASSWORD}\" | docker login --username \"${DOCKER_LOGIN}\" --password-stdin"
-  - ./gradlew -p ./monolithic/ui packageToContainer
-
 deploy:
   provider: script
-  script: chmod +x ./script/deploy.sh && ./script/deploy.sh
+  script: ./script/deploy.sh
   on:
     condition: $TARGET == './monolithic/ui'
     branch: q11
